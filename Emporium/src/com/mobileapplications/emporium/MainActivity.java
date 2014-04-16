@@ -2,7 +2,9 @@ package com.mobileapplications.emporium;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -20,4 +22,18 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    
+    public void cameraButtonOnClick(View view) {
+        
+    }
+    
+    public void mapButtonOnClick(View view) {
+        
+    }
+    
+    public void dropboxButtonOnClick(View view) {
+        Intent intent = new Intent(this, DropboxMainActivity.class);
+        
+        startActivity(intent);
+    }
 }
