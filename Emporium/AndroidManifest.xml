@@ -44,7 +44,7 @@
             android:name="com.dropbox.client2.android.AuthActivity"
             android:launchMode="singleTask" >
             <intent-filter>
-                <data android:scheme="db-APP_KEY" />
+                <data android:scheme="db-x9c7fitdx40c8x6" />
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -59,13 +59,19 @@
             android:exported="false"
             android:label="Dropbox Sync" />
         <!-- Dropbox Sync API Entries end -->
+        <!-- ================================================= -->
+
         <activity
-            android:name="com.mobileapplications.emporium.DropboxMainActivity"
+            android:name="com.mobileapplications.emporium.dropbox.DropboxMainActivity"
             android:label="@string/title_activity_dropbox_main"
             android:parentActivityName="com.test.helloworld01.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.test.helloworld01.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity"
+            android:label="@string/title_activity_dbx_folder_content_list" >
         </activity>
     </application>
 

@@ -8,5 +8,7 @@
     <string name="btn_dropbox_text">Dropbox</string>
     <string name="title_activity_dropbox_main">Dropbox</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_dbx_folder_content_list">Folder Content</string>
+    <string name="change_account">Change account</string>
 
 </resources>

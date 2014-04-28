@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/button_camera"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30pt"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
@@ -21,7 +21,7 @@
     <Button
         android:id="@+id/button_map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30pt"
         android:layout_alignLeft="@+id/button_camera"
         android:layout_below="@+id/button_camera"
         android:layout_marginTop="24dp"
@@ -31,7 +31,7 @@
     <Button
         android:id="@+id/button_dropbox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30pt"
         android:layout_below="@+id/button_map"
         android:layout_marginTop="24dp"
         android:onClick="dropboxButtonOnClick"

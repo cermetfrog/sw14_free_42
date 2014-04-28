@@ -1,5 +1,7 @@
 package com.mobileapplications.emporium;
 
+import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -32,7 +34,7 @@ public class MainActivity extends Activity {
     }
     
     public void dropboxButtonOnClick(View view) {
-        Intent intent = new Intent(this, DropboxMainActivity.class);
+        Intent intent = new Intent(this, DbxFolderContentListActivity.class);
         
         startActivity(intent);
     }
