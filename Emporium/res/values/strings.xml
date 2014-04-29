@@ -10,5 +10,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_dbx_folder_content_list">Folder Content</string>
     <string name="change_account">Change account</string>
+    <string name="textview_default_text">TextView</string>
+    <string name="dbx_listitem_imageview_desc">Symbol for Filetype</string>
 
 </resources>

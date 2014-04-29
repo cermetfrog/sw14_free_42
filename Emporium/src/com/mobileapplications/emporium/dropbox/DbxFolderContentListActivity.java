@@ -11,13 +11,11 @@ import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxSyncStatus;
 import com.mobileapplications.emporium.R;
-import com.mobileapplications.emporium.R.menu;
 
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 
 public class DbxFolderContentListActivity extends ListActivity  
 implements DbxFileSystem.SyncStatusListener,
@@ -170,11 +168,23 @@ implements DbxFileSystem.SyncStatusListener,
     
     
     private void updateListViewWithDbxFileInfoList(List<DbxFileInfo> fileInfoList) {
+                
+        List<DbxListItem> itemList = new ArrayList<DbxListItem>();
         
-        if (fileInfoList == null) return;
+        if (fileInfoList.size() > 0) {
+            DbxFileInfo fileInfo = fileInfoList.get(0);
+            DbxPath parentPath = fileInfo.path.getParent();
+            if ((parentPath != null) && !parentPath.isSameOrDescendantOf(DbxPath.ROOT)) {
+                itemList.add(new DbxListItem(this,"Parent folder",null));
+            }
+        }
         
-        ArrayAdapter<DbxFileInfo> arrayAdapter = 
-                new ArrayAdapter<DbxFileInfo>(this, R.layout.dbx_folder_content_list_textview, fileInfoList);
+        for (DbxFileInfo fileInfo : fileInfoList) {
+            itemList.add(new DbxListItem(this,fileInfo));
+        }
+        
+        DbxArrayAdapter arrayAdapter = 
+                new DbxArrayAdapter(this, R.layout.dbx_folder_content_list_textview, itemList);
         
         getListView().setAdapter(arrayAdapter);
     }
