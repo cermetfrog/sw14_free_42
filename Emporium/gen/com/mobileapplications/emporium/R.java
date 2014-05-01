@@ -21,11 +21,41 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int folder=0x7f020000;
-        public static final int folder_user=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int page_white_picture=0x7f020003;
-        public static final int page_white_text=0x7f020004;
+        public static final int excel=0x7f020000;
+        public static final int folder=0x7f020001;
+        public static final int folder_app=0x7f020002;
+        public static final int folder_camera=0x7f020003;
+        public static final int folder_gray=0x7f020004;
+        public static final int folder_public=0x7f020005;
+        public static final int folder_star=0x7f020006;
+        public static final int folder_user=0x7f020007;
+        public static final int folder_user_gray=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int music=0x7f02000a;
+        public static final int package48=0x7f02000b;
+        public static final int page_white=0x7f02000c;
+        public static final int page_white_acrobat=0x7f02000d;
+        public static final int page_white_actionscript=0x7f02000e;
+        public static final int page_white_c=0x7f02000f;
+        public static final int page_white_code=0x7f020010;
+        public static final int page_white_cplusplus=0x7f020011;
+        public static final int page_white_csharp=0x7f020012;
+        public static final int page_white_cup=0x7f020013;
+        public static final int page_white_dvd=0x7f020014;
+        public static final int page_white_flash=0x7f020015;
+        public static final int page_white_gear=0x7f020016;
+        public static final int page_white_h=0x7f020017;
+        public static final int page_white_paint=0x7f020018;
+        public static final int page_white_php=0x7f020019;
+        public static final int page_white_picture=0x7f02001a;
+        public static final int page_white_ruby=0x7f02001b;
+        public static final int page_white_text=0x7f02001c;
+        public static final int page_white_tux=0x7f02001d;
+        public static final int page_white_vector=0x7f02001e;
+        public static final int page_white_visualstudio=0x7f02001f;
+        public static final int page_white_zip=0x7f020020;
+        public static final int powerpoint=0x7f020021;
+        public static final int word=0x7f020022;
     }
     public static final class id {
         public static final int action_settings=0x7f080005;

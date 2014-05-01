@@ -4,35 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dropbox.sync.android.DbxAccount;
-import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
-import com.dropbox.sync.android.DbxSyncStatus;
 import com.mobileapplications.emporium.R;
 
 import android.os.Bundle;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
-public class DbxFolderContentListActivity extends ListActivity  
-implements DbxFileSystem.SyncStatusListener,
-           DbxAccountManager.AccountListener {
+public class DbxFolderContentListActivity extends ListActivity 
+    implements DbxFileSystem.PathListener {
     
     // Variables used for logging.
-    private static final String LOG_DBX_TAG = "Dropbox-API";
-
-    // Dropbox specific 'App-Key' and 'App-Secret'
-    private static final String dbxAppKey = "x9c7fitdx40c8x6";
-    private static final String dbxAppSecret = "iywgu4x5n1df198";
+    private static final String LOG_TAG = "DbxFolderContentListActivity";
     
     // Dropbox constants
     private static final int DBX_START_LINK_CRC = 1;
-
     
-    private DbxAccountManager dbxAccountMgr;
+    private DbxManager dbxManager;
+    private DbxPath currentPath;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,7 +45,9 @@ implements DbxFileSystem.SyncStatusListener,
         // Uncomment to set custom layout.
         //setContentView(R.layout.activity_dbx_folder_content_list);
         
-        getDbxAccountMgr();
+        dbxManager = DbxManager.getInstance(getApplicationContext());
+        
+        dbxManager.linkAccount(this, DBX_START_LINK_CRC);
     }
     
     @Override
@@ -61,10 +60,8 @@ implements DbxFileSystem.SyncStatusListener,
     protected void onStart() {
         super.onStart();
         
-        dbxStartLink();
-        
-        if (dbxAccountMgr.hasLinkedAccount()) {
-            listFolder(new DbxPath("/"));
+        if (dbxManager.hasLinkedAccount()) {
+            updateListViewWithPath(DbxPath.ROOT);
         }
     }
     
@@ -92,92 +89,33 @@ implements DbxFileSystem.SyncStatusListener,
         super.onDestroy();
     }
     
-    
-    private void getDbxAccountMgr() {
-                
-        try {
-            dbxAccountMgr = DbxAccountManager.getInstance(getApplicationContext(), dbxAppKey, dbxAppSecret);
-        }
-        catch (DbxAccountManager.ConfigurationMismatchException e) {
-            // TODO Exception handling
-            Log.d(LOG_DBX_TAG, "ConfigurationMismatchException when getting DbxAccountManager.");
-            return;
-        }
-    }
-    
-    private void dbxStartLink() {
+    private void updateListViewWithPath(DbxPath path) {
+        Log.d(LOG_TAG, "updateListViewWithPath()");
         
-        if (dbxAccountMgr == null) return;
+        List<DbxFileInfo> fileInfoList = dbxManager.listFolder(path);        
+        if (fileInfoList == null) return;
         
-        try {
-            dbxAccountMgr.startLink(this, DBX_START_LINK_CRC);
-        }
-        catch (DbxAccountManager.MultipleAccountsException e) {
-            // TODO Exception handling
-            Log.d(LOG_DBX_TAG, "MultipleAccountsException while trying to link DbxAccountManager with account.");
-            return;
-        }
-    }
-    
-    private void listFolder(DbxPath path) {
-        
-        if (dbxAccountMgr == null) return;
-        
-        DbxFileSystem dbxFileSystem;
-        List<DbxFileInfo> fileInfoList;
-        
-        try {
-            dbxFileSystem = DbxFileSystem.forAccount(dbxAccountMgr.getLinkedAccount());
-            
-            // Add syncStatusListener
-            dbxFileSystem.addSyncStatusListener(this);
-            
-            fileInfoList = dbxFileSystem.listFolder(path);
-        }
-        catch (DbxException.Unauthorized e) {
-            // TODO Exception handling
-            Log.d(LOG_DBX_TAG, "Unauthorized exception while creating DbxFileSystemObject.");
-            return;
-        }
-        catch (DbxException.NotFound e) {
-            Log.d(LOG_DBX_TAG, e.getMessage());
-            return;
-        }
-        catch (DbxException.InvalidParameter e) {
-            Log.d(LOG_DBX_TAG, e.getMessage());
-            return;
-        }
-        catch (DbxException e) {
-            Log.d(LOG_DBX_TAG, e.getMessage());
-            return;
-        }
-        
-        for (DbxFileInfo fileInfo : fileInfoList) {
-            Log.d(LOG_DBX_TAG,"---------------------------------------------");
-            Log.d(LOG_DBX_TAG, "idFolder:     " + fileInfo.isFolder);
-            Log.d(LOG_DBX_TAG, "path:         " + fileInfo.path.getName());
-            Log.d(LOG_DBX_TAG, "size:         " + fileInfo.size + " Byte");
-            Log.d(LOG_DBX_TAG, "modifiedTime: " + fileInfo.modifiedTime);
-            Log.d(LOG_DBX_TAG, "thumbExists:  " + fileInfo.thumbExists);
-            Log.d(LOG_DBX_TAG, "iconName:     " + fileInfo.iconName);
-            Log.d(LOG_DBX_TAG, "toString:     " + fileInfo.toString());
-        }
-        
-        updateListViewWithDbxFileInfoList(fileInfoList);
-    }
-    
-    
-    private void updateListViewWithDbxFileInfoList(List<DbxFileInfo> fileInfoList) {
-                
         List<DbxListItem> itemList = new ArrayList<DbxListItem>();
+
+        this.currentPath = path;
         
-        if (fileInfoList.size() > 0) {
-            DbxFileInfo fileInfo = fileInfoList.get(0);
-            DbxPath parentPath = fileInfo.path.getParent();
-            if ((parentPath != null) && !parentPath.isSameOrDescendantOf(DbxPath.ROOT)) {
-                itemList.add(new DbxListItem(this,"Parent folder",null));
-            }
+        if (!currentPath.equals(DbxPath.ROOT)) {
+            itemList.add(new DbxListItem(this,"Parent Folder",null));
         }
+
+//        String title = "";
+        
+//        if (fileInfoList.size() > 0) {
+//            DbxFileInfo fileInfo = fileInfoList.get(0);
+//            DbxPath parentPath = fileInfo.path.getParent();
+//            
+//            if (parentPath != null) {
+//                title = parentPath.getName();
+//                if (!parentPath.isSameOrDescendantOf(DbxPath.ROOT)) {
+//                    itemList.add(new DbxListItem(this,"Parent Folder",null));
+//                }
+//            }
+//        }
         
         for (DbxFileInfo fileInfo : fileInfoList) {
             itemList.add(new DbxListItem(this,fileInfo));
@@ -187,39 +125,49 @@ implements DbxFileSystem.SyncStatusListener,
                 new DbxArrayAdapter(this, R.layout.dbx_folder_content_list_textview, itemList);
         
         getListView().setAdapter(arrayAdapter);
-    }
-    
-    
-    @Override
-    public void onSyncStatusChange(DbxFileSystem fs) {
         
-        try {
-            Log.d(LOG_DBX_TAG, "Cached state has been synced: " + fs.hasSynced());
-            DbxSyncStatus syncStatus = fs.getSyncStatus();
-            Log.d(LOG_DBX_TAG, "isSyncActive(): " + syncStatus.isSyncActive);
-        }
-        catch (DbxException e) {
-            Log.d(LOG_DBX_TAG, e.getMessage());
-        }
+        this.setTitle(currentPath.getName());
     }
     
     @Override
-    public void onLinkedAccountChange(DbxAccountManager mgr, DbxAccount acct) {
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        //super.onListItemClick(l, v, position, id);
+        Log.d(LOG_TAG,"onListItemClick: position = " + position);
         
-        if (!acct.isLinked()) return;
+        ListAdapter listAdapter = getListView().getAdapter();
+        DbxListItem listItem = (DbxListItem)listAdapter.getItem(position);
+        DbxFileInfo fileInfo = listItem.getDbxFileInfo();
         
-        Log.d(LOG_DBX_TAG, "onLinkedAccountChange");
-        
-        DbxPath path;
-        try {
-            path = new DbxPath("/");
+        if (listItem.getText().equals("Parent Folder")) {
+            updateListViewWithPath(currentPath.getParent());
         }
-        catch (DbxPath.InvalidPathException e) {
-            Log.d(LOG_DBX_TAG, e.getMessage());
-            return;
+        else {
+            if (fileInfo != null) {
+                if (fileInfo.isFolder) {
+                    updateListViewWithPath(fileInfo.path);
+                }
+            }
         }
-        
-        listFolder(path);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(LOG_TAG, "onActivityResult()");
+        
+        switch (requestCode) {
+        
+        case DBX_START_LINK_CRC:
+            updateListViewWithPath(DbxPath.ROOT);
+            break;
+
+        default:
+            break;
+        }
+    }
+    
+    @Override
+    public void onPathChange(DbxFileSystem fs, DbxPath path, Mode mode) {
+        Log.d(LOG_TAG, "onPathChange called.");
+        updateListViewWithPath(path);
+    }
 }

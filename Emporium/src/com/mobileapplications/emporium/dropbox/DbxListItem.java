@@ -10,17 +10,20 @@ public class DbxListItem {
     private String text;
     private Drawable drawable;
     private Context context;
+    private DbxFileInfo dbxFileInfo;
 
     public DbxListItem(Context context, String text, Drawable drawable) {
         this.context = context;
         this.text = text;
         this.drawable = drawable;
+        this.dbxFileInfo = null;
     }
     
     
     public DbxListItem(Context context, DbxFileInfo fileInfo) {
         this.context = context;
         if (fileInfo != null) {
+            this.dbxFileInfo = fileInfo;
             text = fileInfo.path.getName();
             drawable = getDrawableFromDbxFileInfo(fileInfo);
         }
@@ -32,6 +35,10 @@ public class DbxListItem {
     
     public Drawable getDrawable() {
         return this.drawable;
+    }
+    
+    public DbxFileInfo getDbxFileInfo() {
+        return this.dbxFileInfo;
     }
     
     
