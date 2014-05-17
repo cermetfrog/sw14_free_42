@@ -1,6 +1,7 @@
 package com.mobileapplications.emporium;
 
 import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
+import com.mobileapplications.emporium.maps.MapActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -30,7 +31,8 @@ public class MainActivity extends Activity {
     }
     
     public void mapButtonOnClick(View view) {
-        
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
     
     public void dropboxButtonOnClick(View view) {

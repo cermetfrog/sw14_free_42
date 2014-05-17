@@ -12,5 +12,7 @@
     <string name="change_account">Change account</string>
     <string name="textview_default_text">TextView</string>
     <string name="dbx_listitem_imageview_desc">Symbol for Filetype</string>
+    <string name="title_map_activity">Google Maps</string>
+    <string name="map_goto">Go To</string>
 
 </resources>
