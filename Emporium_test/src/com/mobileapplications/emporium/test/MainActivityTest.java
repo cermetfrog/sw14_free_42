@@ -1,6 +1,9 @@
 package com.mobileapplications.emporium.test;
 
 import com.mobileapplications.emporium.MainActivity;
+import com.mobileapplications.emporium.camera.CameraActivity;
+import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
+import com.mobileapplications.emporium.maps.MapActivity;
 import com.robotium.solo.Solo;
 
 import android.test.ActivityInstrumentationTestCase2;
@@ -25,7 +28,15 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     public void testButtons()
     {
         mySolo.clickOnButton("Dropbox");
-        //mySolo.clickOnButton("Map");
-        //mySolo.clickOnButton("Camera");
+        mySolo.assertCurrentActivity("Current activity should be DbxFoldercontentListActivity", DbxFolderContentListActivity.class);
+        mySolo.goBack();
+        
+        mySolo.clickOnButton("Map");
+        mySolo.assertCurrentActivity("Current activity should be MapActivity", MapActivity.class);
+        mySolo.goBack();
+        
+        mySolo.clickOnButton("Camera");
+        mySolo.assertCurrentActivity("Current activity should be CameraActivity", CameraActivity.class);
+        mySolo.goBack();
     }
 }

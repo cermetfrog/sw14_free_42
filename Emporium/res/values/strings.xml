@@ -14,5 +14,8 @@
     <string name="dbx_listitem_imageview_desc">Symbol for Filetype</string>
     <string name="title_map_activity">Google Maps</string>
     <string name="map_goto">Go To</string>
+    <string name="title_activity_camera">Camera Activity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_image_view">ImageViewActivity</string>
 
 </resources>

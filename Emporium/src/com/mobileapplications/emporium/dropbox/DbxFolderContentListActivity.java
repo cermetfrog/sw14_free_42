@@ -3,8 +3,6 @@ package com.mobileapplications.emporium.dropbox;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dropbox.sync.android.DbxAccount;
-import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
