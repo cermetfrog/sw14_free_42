@@ -1,5 +1,7 @@
 package com.mobileapplications.emporium.dropbox;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
@@ -9,6 +11,7 @@ import android.util.Log;
 import com.dropbox.sync.android.DbxAccount;
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
+import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
@@ -127,6 +130,48 @@ public class DbxManager implements DbxFileSystem.SyncStatusListener,
         if (dbxFileSystem == null) return;
         
         dbxFileSystem.addPathListener(l, path, mode);
+    }
+    
+    public boolean uploadFileToDbxPath(File file, DbxPath dbxFilePath) {
+        if (dbxAccountMgr == null || dbxFileSystem == null) return false;
+        if (file == null || dbxFilePath == null) return false;
+        
+        DbxFile newDbxFile = null;
+        try {
+            newDbxFile = dbxFileSystem.create(dbxFilePath);
+        }
+        catch (DbxException.Exists e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+        }
+        catch (DbxException.InvalidParameter e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+        }
+        catch (DbxException.AlreadyOpen e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+        }
+        catch (DbxException e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+        }
+        
+        if (newDbxFile == null) return false;
+        
+        try {
+            newDbxFile.writeFromExistingFile(file, false);
+        }
+        catch (DbxException e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+            return false;
+        }
+        catch (IOException e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+            return false;
+        }
+        catch (DbxFile.StreamExclusionException e) {
+            Log.d(LOG_DBX_TAG, e.getMessage());
+            return false;
+        }
+        
+        return true;
     }
     
     // ========================================================================

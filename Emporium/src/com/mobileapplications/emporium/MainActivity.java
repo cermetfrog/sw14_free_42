@@ -1,5 +1,6 @@
 package com.mobileapplications.emporium;
 
+import com.mobileapplications.emporium.camera.CameraActivity;
 import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
 import com.mobileapplications.emporium.maps.MapActivity;
 
@@ -27,7 +28,8 @@ public class MainActivity extends Activity {
     
     
     public void cameraButtonOnClick(View view) {
-        
+        Intent intent = new Intent(this,CameraActivity.class);
+        startActivity(intent);
     }
     
     public void mapButtonOnClick(View view) {
