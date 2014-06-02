@@ -182,6 +182,11 @@ containing a value of this type.
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -255,19 +260,24 @@ containing a value of this type.
         public static final int word=0x7f02003e;
     }
     public static final class id {
-        public static final int action_settings=0x7f05000b;
+        public static final int action_settings=0x7f050010;
         public static final int button_camera=0x7f050005;
-        public static final int button_dropbox=0x7f050007;
-        public static final int button_map=0x7f050006;
-        public static final int dbxListItemImageView=0x7f050009;
-        public static final int dbxListItemTextView=0x7f05000a;
-        public static final int goTo=0x7f05000e;
+        public static final int button_dropbox=0x7f050009;
+        public static final int button_map=0x7f050008;
+        public static final int dbxListItemImageView=0x7f05000b;
+        public static final int dbxListItemTextView=0x7f05000c;
+        public static final int goTo=0x7f050013;
         public static final int hybrid=0x7f050004;
-        public static final int item1=0x7f05000c;
-        public static final int map=0x7f050008;
-        public static final int map_settings=0x7f05000d;
+        public static final int imageView1=0x7f050007;
+        public static final int item1=0x7f050011;
+        public static final int map=0x7f05000a;
+        public static final int map_settings=0x7f050012;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
+        public static final int photoGridFragment=0x7f050006;
+        public static final int photoGridItemImageView=0x7f05000e;
+        public static final int photoGridItemTextView=0x7f05000f;
+        public static final int photoGridView=0x7f05000d;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
     }
@@ -275,17 +285,23 @@ containing a value of this type.
         public static final int google_play_services_version=0x7f070000;
     }
     public static final class layout {
-        public static final int activity_dbx_folder_content_list=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_map=0x7f030002;
-        public static final int dbx_folder_content_list_textview=0x7f030003;
-        public static final int dbx_folder_content_listitem=0x7f030004;
+        public static final int activity_camera=0x7f030000;
+        public static final int activity_dbx_folder_content_list=0x7f030001;
+        public static final int activity_image_view=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_map=0x7f030004;
+        public static final int dbx_folder_content_list_textview=0x7f030005;
+        public static final int dbx_folder_content_listitem=0x7f030006;
+        public static final int fragment_file_browser=0x7f030007;
+        public static final int fragment_photo_grid=0x7f030008;
+        public static final int fragment_photo_grid_item=0x7f030009;
     }
     public static final class menu {
-        public static final int dbx_folder_content_list=0x7f0a0000;
-        public static final int dropbox_main=0x7f0a0001;
-        public static final int main=0x7f0a0002;
-        public static final int map_activity=0x7f0a0003;
+        public static final int camera=0x7f0a0000;
+        public static final int dbx_folder_content_list=0x7f0a0001;
+        public static final int dropbox_main=0x7f0a0002;
+        public static final int main=0x7f0a0003;
+        public static final int map_activity=0x7f0a0004;
     }
     public static final class string {
         public static final int action_settings=0x7f06001c;
@@ -389,14 +405,17 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f060013;
         public static final int dbx_listitem_imageview_desc=0x7f060025;
+        public static final int hello_blank_fragment=0x7f060029;
         public static final int hello_world=0x7f060021;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
         public static final int map_goto=0x7f060027;
         public static final int textview_default_text=0x7f060024;
+        public static final int title_activity_camera=0x7f060028;
         public static final int title_activity_dbx_folder_content_list=0x7f060022;
         public static final int title_activity_dropbox_main=0x7f060020;
+        public static final int title_activity_image_view=0x7f06002a;
         public static final int title_map_activity=0x7f060026;
     }
     public static final class style {
