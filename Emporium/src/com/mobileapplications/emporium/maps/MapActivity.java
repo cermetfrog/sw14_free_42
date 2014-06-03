@@ -41,27 +41,32 @@ public class MapActivity extends Activity
 			// TODO Auto-generated method stub
 			googleMap.setMyLocationEnabled(true);
 			
-			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			GPSTracker track = new GPSTracker(this);
+			LatLng latlng;
 			
-			Criteria criteria = new Criteria();
-			
-			String provider = locationManager.getBestProvider(criteria, true);
-			
-			Location myLocation = locationManager.getLastKnownLocation(provider);
-			
+			if(track.canGetLocation())
+			{
+				latlng = new LatLng(track.getLatitude(), track.getLongitude());
+			}
+			else
+			{
+				track.showSettingsAlert();
+				latlng = new LatLng(track.getLatitude(), track.getLongitude());
+			}
+						
 			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 			
 			/*double latitude = myLocation.getLatitude();
 			
 			double longitude = myLocation.getLongitude();
 			
-			LatLng latlng = new LatLng(latitude, longitude);
+			LatLng latlng = new LatLng(latitude, longitude);*/
 			
 			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
 			
 			googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 			
-			googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Mahmoud&Schuster are programming"));*/
+			googleMap.addMarker(new MarkerOptions().position(latlng).title("Mahmoud&Schuster are programming"));
 		}
 
 		@Override
