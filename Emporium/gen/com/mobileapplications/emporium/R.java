@@ -233,51 +233,58 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f020023;
         public static final int ic_plusone_standard_off_client=0x7f020024;
         public static final int ic_plusone_tall_off_client=0x7f020025;
-        public static final int music=0x7f020026;
-        public static final int package48=0x7f020027;
-        public static final int page_white=0x7f020028;
-        public static final int page_white_acrobat=0x7f020029;
-        public static final int page_white_actionscript=0x7f02002a;
-        public static final int page_white_c=0x7f02002b;
-        public static final int page_white_code=0x7f02002c;
-        public static final int page_white_cplusplus=0x7f02002d;
-        public static final int page_white_csharp=0x7f02002e;
-        public static final int page_white_cup=0x7f02002f;
-        public static final int page_white_dvd=0x7f020030;
-        public static final int page_white_flash=0x7f020031;
-        public static final int page_white_gear=0x7f020032;
-        public static final int page_white_h=0x7f020033;
-        public static final int page_white_paint=0x7f020034;
-        public static final int page_white_php=0x7f020035;
-        public static final int page_white_picture=0x7f020036;
-        public static final int page_white_ruby=0x7f020037;
-        public static final int page_white_text=0x7f020038;
-        public static final int page_white_tux=0x7f020039;
-        public static final int page_white_vector=0x7f02003a;
-        public static final int page_white_visualstudio=0x7f02003b;
-        public static final int page_white_zip=0x7f02003c;
-        public static final int powerpoint=0x7f02003d;
-        public static final int word=0x7f02003e;
+        public static final int image_icon_small=0x7f020026;
+        public static final int music=0x7f020027;
+        public static final int package48=0x7f020028;
+        public static final int page_white=0x7f020029;
+        public static final int page_white_acrobat=0x7f02002a;
+        public static final int page_white_actionscript=0x7f02002b;
+        public static final int page_white_c=0x7f02002c;
+        public static final int page_white_code=0x7f02002d;
+        public static final int page_white_cplusplus=0x7f02002e;
+        public static final int page_white_csharp=0x7f02002f;
+        public static final int page_white_cup=0x7f020030;
+        public static final int page_white_dvd=0x7f020031;
+        public static final int page_white_flash=0x7f020032;
+        public static final int page_white_gear=0x7f020033;
+        public static final int page_white_h=0x7f020034;
+        public static final int page_white_paint=0x7f020035;
+        public static final int page_white_php=0x7f020036;
+        public static final int page_white_picture=0x7f020037;
+        public static final int page_white_ruby=0x7f020038;
+        public static final int page_white_text=0x7f020039;
+        public static final int page_white_tux=0x7f02003a;
+        public static final int page_white_vector=0x7f02003b;
+        public static final int page_white_visualstudio=0x7f02003c;
+        public static final int page_white_zip=0x7f02003d;
+        public static final int parent_folder_icon=0x7f02003e;
+        public static final int powerpoint=0x7f02003f;
+        public static final int word=0x7f020040;
     }
     public static final class id {
-        public static final int action_settings=0x7f050010;
+        public static final int action_camera=0x7f050014;
+        public static final int action_dropbox=0x7f050015;
+        public static final int action_map=0x7f050016;
+        public static final int action_settings=0x7f050012;
         public static final int button_camera=0x7f050005;
         public static final int button_dropbox=0x7f050009;
         public static final int button_map=0x7f050008;
         public static final int dbxListItemImageView=0x7f05000b;
         public static final int dbxListItemTextView=0x7f05000c;
-        public static final int goTo=0x7f050013;
+        public static final int fileBrowserListItemImageView=0x7f05000d;
+        public static final int fileBrowserListItemTextView=0x7f05000e;
+        public static final int goTo=0x7f050018;
         public static final int hybrid=0x7f050004;
         public static final int imageView1=0x7f050007;
-        public static final int item1=0x7f050011;
+        public static final int item1=0x7f050013;
         public static final int map=0x7f05000a;
-        public static final int map_settings=0x7f050012;
+        public static final int map_settings=0x7f050017;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int photoGridFragment=0x7f050006;
-        public static final int photoGridItemImageView=0x7f05000e;
-        public static final int photoGridItemTextView=0x7f05000f;
-        public static final int photoGridView=0x7f05000d;
+        public static final int photoGridItemImageView=0x7f050010;
+        public static final int photoGridItemTextView=0x7f050011;
+        public static final int photoGridView=0x7f05000f;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
     }
@@ -292,7 +299,7 @@ containing a value of this type.
         public static final int activity_map=0x7f030004;
         public static final int dbx_folder_content_list_textview=0x7f030005;
         public static final int dbx_folder_content_listitem=0x7f030006;
-        public static final int fragment_file_browser=0x7f030007;
+        public static final int file_browser_listitem=0x7f030007;
         public static final int fragment_photo_grid=0x7f030008;
         public static final int fragment_photo_grid_item=0x7f030009;
     }
@@ -304,6 +311,9 @@ containing a value of this type.
         public static final int map_activity=0x7f0a0004;
     }
     public static final class string {
+        public static final int action_camera=0x7f06002b;
+        public static final int action_dropbox=0x7f06002d;
+        public static final int action_map=0x7f06002c;
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
@@ -411,6 +421,7 @@ containing a value of this type.
          */
         public static final int location_client_powered_by_google=0x7f06001a;
         public static final int map_goto=0x7f060027;
+        public static final int parent_folder=0x7f06002e;
         public static final int textview_default_text=0x7f060024;
         public static final int title_activity_camera=0x7f060028;
         public static final int title_activity_dbx_folder_content_list=0x7f060022;

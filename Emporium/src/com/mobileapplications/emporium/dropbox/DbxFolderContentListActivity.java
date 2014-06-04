@@ -3,19 +3,20 @@ package com.mobileapplications.emporium.dropbox;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dropbox.sync.android.DbxFileInfo;
-import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
-import com.mobileapplications.emporium.R;
-
-import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.dropbox.sync.android.DbxFileInfo;
+import com.dropbox.sync.android.DbxFileSystem;
+import com.dropbox.sync.android.DbxPath;
+import com.mobileapplications.emporium.R;
 
 public class DbxFolderContentListActivity extends ListActivity 
     implements DbxFileSystem.PathListener {
@@ -98,22 +99,9 @@ public class DbxFolderContentListActivity extends ListActivity
         this.currentPath = path;
         
         if (!currentPath.equals(DbxPath.ROOT)) {
-            itemList.add(new DbxListItem(this,"Parent Folder",null));
+            Drawable icon = getResources().getDrawable(R.drawable.parent_folder_icon);
+            itemList.add(new DbxListItem(this,"Parent Folder",icon));
         }
-
-//        String title = "";
-        
-//        if (fileInfoList.size() > 0) {
-//            DbxFileInfo fileInfo = fileInfoList.get(0);
-//            DbxPath parentPath = fileInfo.path.getParent();
-//            
-//            if (parentPath != null) {
-//                title = parentPath.getName();
-//                if (!parentPath.isSameOrDescendantOf(DbxPath.ROOT)) {
-//                    itemList.add(new DbxListItem(this,"Parent Folder",null));
-//                }
-//            }
-//        }
         
         for (DbxFileInfo fileInfo : fileInfoList) {
             itemList.add(new DbxListItem(this,fileInfo));

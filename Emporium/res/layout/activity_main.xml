@@ -9,32 +9,39 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/button_camera"
-        android:layout_width="match_parent"
-        android:layout_height="30pt"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:onClick="cameraButtonOnClick"
-        android:text="@string/btn_camera_text" />
-
-    <Button
         android:id="@+id/button_map"
         android:layout_width="match_parent"
-        android:layout_height="30pt"
+        android:layout_height="40dp"
         android:layout_alignLeft="@+id/button_camera"
         android:layout_below="@+id/button_camera"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:onClick="mapButtonOnClick"
         android:text="@string/btn_map_text" />
     
     <Button
         android:id="@+id/button_dropbox"
         android:layout_width="match_parent"
-        android:layout_height="30pt"
+        android:layout_height="40dp"
         android:layout_below="@+id/button_map"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:onClick="dropboxButtonOnClick"
         android:text="@string/btn_dropbox_text" />
+
+    <Button
+        android:id="@+id/button_camera"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/button_dropbox"
+        android:onClick="cameraButtonOnClick"
+        android:text="@string/btn_camera_text" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/button_dropbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+    </ListView>
 
 </RelativeLayout>
