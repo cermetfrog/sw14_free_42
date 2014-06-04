@@ -1,6 +1,7 @@
 package com.mobileapplications.emporium.maps;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -17,10 +18,13 @@ import com.mobileapplications.emporium.R;
 public class MapActivity extends Activity
 {
 		private  GoogleMap googleMap;
-		private boolean canGetLocation;
+		private GPSTracker track;
+		private LatLng latlng;
+		
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        track = new GPSTracker(this);
 	        setContentView(R.layout.activity_map);
 	        setUpMapIfNeeded();
 	    }
@@ -34,41 +38,35 @@ public class MapActivity extends Activity
 			
 			if(googleMap != null)
 			{
-				setUpMap();
+				if(!track.canGetLocation())
+					track.showSettingsAlert();
+				else
+					setUpMap();
 			}
 		}
-		private void setUpMap() {
+		public void setUpMap() {
 			// TODO Auto-generated method stub
 			googleMap.setMyLocationEnabled(true);
 			
-			GPSTracker track = new GPSTracker(this);
-			LatLng latlng;
-			
-			if(track.canGetLocation())
-			{
-				latlng = new LatLng(track.getLatitude(), track.getLongitude());
-			}
-			else
-			{
-				track.showSettingsAlert();
-				latlng = new LatLng(track.getLatitude(), track.getLongitude());
-			}
+			latlng = new LatLng(track.getLatitude(), track.getLongitude());
 						
 			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-			
-			/*double latitude = myLocation.getLatitude();
-			
-			double longitude = myLocation.getLongitude();
-			
-			LatLng latlng = new LatLng(latitude, longitude);*/
-			
+						
 			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
 			
 			googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 			
-			googleMap.addMarker(new MarkerOptions().position(latlng).title("Mahmoud&Schuster are programming"));
+			//googleMap.addMarker(new MarkerOptions().position(latlng).title("Mahmoud&Schuster are programming"));
 		}
 
+	    protected void onActivityResult(int requestCode, int resultCode, Intent data) 
+	    {
+	        if(requestCode == 0)
+	        {     
+	        	track.getLocation();
+	        	setUpMap();
+	        }
+	    }
 		@Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        // Inflate the menu; this adds items to the action bar if it is present.

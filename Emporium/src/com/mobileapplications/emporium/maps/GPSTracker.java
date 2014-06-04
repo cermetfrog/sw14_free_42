@@ -15,22 +15,22 @@ import android.provider.Settings;
 import android.util.Log;
  
 public class GPSTracker extends Service implements LocationListener {
- 
-    private final Context mContext;
- 
-    // flag for GPS status
-    boolean isGPSEnabled = false;
- 
-    // flag for network status
-    boolean isNetworkEnabled = false;
- 
-    // flag for GPS status
+		 
+	private final Context mContext;
+	 
+	    // flag for GPS status
+	boolean isGPSEnabled = false;
+	 
+	public int RequestCode = 0;
+	    // flag for network status
+	boolean isNetworkEnabled = false;
+	 
+	    // flag for GPS status
     boolean canGetLocation = false;
- 
-    Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
- 
+	 
+	Location location; // location
+	double latitude; // latitude
+	double longitude; // longitude
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
  
@@ -104,7 +104,8 @@ public class GPSTracker extends Service implements LocationListener {
  
         return location;
     }
-     
+    
+    
     /**
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app
@@ -162,12 +163,11 @@ public class GPSTracker extends Service implements LocationListener {
   
         
         // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() 
+        {
             public void onClick(DialogInterface dialog,int which) {
-            	int RequestCode = 0;
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                ((Activity) mContext).startActivityForResult(intent, RequestCode);
-                int x = 10;
+
+                ((Activity) mContext).startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), RequestCode);
             }
         });
   
