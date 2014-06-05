@@ -95,16 +95,7 @@ public class PhotoGridFragment extends Fragment
         
         if (gridView == null || folderUri == null) return;
         
-        URI juri = null;
-        
-        try {
-            juri = new URI(folderUri.toString());
-        }
-        catch (URISyntaxException ex) {
-            return;
-        }
-        
-        File currentFolder = new File(juri);
+        File currentFolder = new File(folderUri.getPath());
         File[] fileList = currentFolder.listFiles();
         
         List<PhotoGridItem> itemList = PhotoGridItem.newInstance(fileList);
