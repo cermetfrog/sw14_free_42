@@ -54,8 +54,8 @@ public class MapActivity extends Activity
 						
 			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
 			
-			googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
-			
+			googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+			track.stopUsingGPS();
 			//googleMap.addMarker(new MarkerOptions().position(latlng).title("Mahmoud&Schuster are programming"));
 		}
 
