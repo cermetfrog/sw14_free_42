@@ -1,10 +1,12 @@
 package com.mobileapplications.emporium.filebrowser;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -14,6 +16,43 @@ public class FileManager {
     // Static Constants
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
+    
+    
+    public static boolean writeGPSCoordinatesToImage(GPSCoordinates gps, Uri imageUri) {
+        if (imageUri == null || gps == null) return false;
+        return FileManager.writeGPSCoordinatesToImage(gps, new File(imageUri.getPath()));
+    }
+    
+    public static boolean writeGPSCoordinatesToImage(GPSCoordinates gps, File imageFile) {
+        
+        if (imageFile == null || gps == null) return false;
+        
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(imageFile.getPath());
+        }
+        catch (IOException e) {
+            return false;
+        }
+        
+        String strLong = gps.longToDegreeMinutesSeconds();
+        String strLongRef = gps.getLongRef();
+        String strLat = gps.latToDegreeMinutesSeconds();
+        String strLatRef = gps.getLatRef();
+        
+        exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, strLong);
+        exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, strLat);
+        exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, strLongRef);
+        exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, strLatRef);
+        
+        try {
+            exif.saveAttributes();
+        } catch (IOException e) {
+            return false;
+        }
+        
+        return true;
+    }
     
     
     /** Creates an Uri from a given File **/ 

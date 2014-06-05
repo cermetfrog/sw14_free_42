@@ -25,6 +25,7 @@ import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
 import com.mobileapplications.emporium.filebrowser.FileBrowserListAdapter;
 import com.mobileapplications.emporium.filebrowser.FileBrowserListItem;
 import com.mobileapplications.emporium.filebrowser.FileManager;
+import com.mobileapplications.emporium.filebrowser.GPSCoordinates;
 import com.mobileapplications.emporium.maps.MapActivity;
 
 public class MainActivity extends ListActivity 
@@ -83,7 +84,21 @@ public class MainActivity extends ListActivity
 
         Log.d(LOG_TAG,"onListItemClick: position = " + position);
         
-        
+        FileBrowserListAdapter adapter = (FileBrowserListAdapter)getListAdapter();
+        FileBrowserListItem item = adapter.getItem(position);
+
+        // TODO remove test code
+        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
+        if (gps == null) {
+            Log.d(LOG_TAG, "No GPS data :(  ->  writting some...");
+            if (FileManager.writeGPSCoordinatesToImage(new GPSCoordinates(15.460392, "E", 47.058344, "N"), item.getFileUri())) {
+                Log.d(LOG_TAG,"Success! :)");
+            } else {
+                Log.d(LOG_TAG,"Fail! :(");
+            }
+        } else {
+            Log.d(LOG_TAG, "GPS-Data: " + gps.toString());
+        }
     }
 
     @Override
@@ -136,8 +151,7 @@ public class MainActivity extends ListActivity
 
 
     public void cameraButtonOnClick(View view) {
-        Intent intent = new Intent(this,CameraActivity.class);
-        startActivity(intent);
+        
     }
     
     public void mapButtonOnClick(View view) {
