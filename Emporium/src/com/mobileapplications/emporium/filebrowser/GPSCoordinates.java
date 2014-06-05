@@ -9,7 +9,12 @@ import android.util.Log;
 
 public class GPSCoordinates {
     
-    private static String LOG_TAG = "GPSCoordinates";
+    public static final String TAG_LONGITUDE = "longitude";
+    public static final String TAG_LATITUDE = "latitude";
+    public static final String TAG_LONGITUDE_REF = "longitudeRef";
+    public static final String TAG_LATITUDE_REF = "latitudeRef";
+    
+    private static final String LOG_TAG = "GPSCoordinates";
     
     private double mlongitude;
     private double mlatitude;

@@ -87,8 +87,33 @@ public class MainActivity extends ListActivity
         FileBrowserListAdapter adapter = (FileBrowserListAdapter)getListAdapter();
         FileBrowserListItem item = adapter.getItem(position);
 
-        // TODO remove test code
         GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
+        if (gps == null) return;
+        
+        Intent intent = new Intent(this, MapActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putDouble(GPSCoordinates.TAG_LONGITUDE, gps.getLongitude());
+        bundle.putDouble(GPSCoordinates.TAG_LATITUDE, gps.getLatitude());
+        bundle.putString(GPSCoordinates.TAG_LONGITUDE_REF, gps.getLongRef());
+        bundle.putString(GPSCoordinates.TAG_LATITUDE_REF, gps.getLatRef());
+        intent.putExtra("gpscoordinates", bundle);
+        startActivity(intent);
+        
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, 
+            int position, long id) {
+        
+        Log.d(LOG_TAG,"onItemLongClick: position = " + position);
+        
+        // TODO remove test code
+
+        FileBrowserListAdapter adapter = (FileBrowserListAdapter)getListAdapter();
+        FileBrowserListItem item = adapter.getItem(position);
+
+        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
+        
         if (gps == null) {
             Log.d(LOG_TAG, "No GPS data :(  ->  writting some...");
             if (FileManager.writeGPSCoordinatesToImage(new GPSCoordinates(15.460392, "E", 47.058344, "N"), item.getFileUri())) {
@@ -99,13 +124,6 @@ public class MainActivity extends ListActivity
         } else {
             Log.d(LOG_TAG, "GPS-Data: " + gps.toString());
         }
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, 
-            int position, long id) {
-        
-        Log.d(LOG_TAG,"onItemLongClick: position = " + position);
         
         return true;
     }
