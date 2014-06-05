@@ -48,8 +48,7 @@ public class GPSCoordinates {
         String latRef = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
         String longRef = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
         
-        GPSCoordinates gps = new GPSCoordinates(longlat,longRef,latRef);
-        
+        GPSCoordinates gps = new GPSCoordinates(longlat[0],longRef,longlat[1],latRef);
         
         return gps;
     }
@@ -61,13 +60,6 @@ public class GPSCoordinates {
     public GPSCoordinates(double longitude, String longRef, double latitude, String latRef) {
         this.mlongitude = longitude;
         this.mlatitude = latitude;
-        this.mlongitudeRef = longRef;
-        this.mlatitudeRef = latRef;
-    }
-    
-    public GPSCoordinates(float[] longlat, String longRef, String latRef) {
-        this.mlongitude = (double)longlat[0];
-        this.mlatitude = (double)longlat[1];
         this.mlongitudeRef = longRef;
         this.mlatitudeRef = latRef;
     }

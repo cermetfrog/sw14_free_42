@@ -16,11 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
-import com.mobileapplications.emporium.camera.CameraActivity;
+import com.mobileapplications.emporium.dropbox.DbxFolderChooser;
 import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
 import com.mobileapplications.emporium.filebrowser.FileBrowserListAdapter;
 import com.mobileapplications.emporium.filebrowser.FileBrowserListItem;
@@ -32,8 +31,11 @@ public class MainActivity extends ListActivity
     implements OnItemLongClickListener {
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final int CHOOSE_DBX_FOLDER = 101;
 
     private static final String LOG_TAG = "MainActivity";
+
+    /*************************************************************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends ListActivity
         updateListViewWithFile(FileManager.getOutputMediaFolder());
     }
 
+    /*************************************************************************/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,6 +56,8 @@ public class MainActivity extends ListActivity
         return true;
     }
     
+    /*************************************************************************/
+
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,6 +84,8 @@ public class MainActivity extends ListActivity
         }
     }
     
+    /*************************************************************************/
+
     @Override
     protected void onListItemClick(ListView l, View view, int position, long id) {
 
@@ -87,19 +94,25 @@ public class MainActivity extends ListActivity
         FileBrowserListAdapter adapter = (FileBrowserListAdapter)getListAdapter();
         FileBrowserListItem item = adapter.getItem(position);
 
-        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
-        if (gps == null) return;
+        // TODO remove test code
+//        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
+//        if (gps == null) return;
+//        
+//        Intent intent = new Intent(this, MapActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putDouble(GPSCoordinates.TAG_LONGITUDE, gps.getLongitude());
+//        bundle.putDouble(GPSCoordinates.TAG_LATITUDE, gps.getLatitude());
+//        bundle.putString(GPSCoordinates.TAG_LONGITUDE_REF, gps.getLongRef());
+//        bundle.putString(GPSCoordinates.TAG_LATITUDE_REF, gps.getLatRef());
+//        intent.putExtra("gpscoordinates", bundle);
+//        startActivity(intent);
         
-        Intent intent = new Intent(this, MapActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putDouble(GPSCoordinates.TAG_LONGITUDE, gps.getLongitude());
-        bundle.putDouble(GPSCoordinates.TAG_LATITUDE, gps.getLatitude());
-        bundle.putString(GPSCoordinates.TAG_LONGITUDE_REF, gps.getLongRef());
-        bundle.putString(GPSCoordinates.TAG_LATITUDE_REF, gps.getLatRef());
-        intent.putExtra("gpscoordinates", bundle);
-        startActivity(intent);
-        
+        // TODO remove test code
+        Intent intent = new Intent(this,DbxFolderChooser.class);
+        startActivityForResult(intent, CHOOSE_DBX_FOLDER);
     }
+
+    /*************************************************************************/
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, 
@@ -128,13 +141,17 @@ public class MainActivity extends ListActivity
         return true;
     }
 
+    /*************************************************************************/
 
+    @SuppressWarnings("unused")
     private void updateListViewWithUri(Uri uri) {
         if (uri == null) return;
         File file = new File(uri.getPath());
         updateListViewWithFile(file);
     }
     
+    /*************************************************************************/
+
     private void updateListViewWithFile(File file) {
         
         if (file == null || !file.isDirectory()) return;
@@ -167,21 +184,7 @@ public class MainActivity extends ListActivity
         }
     }
 
-
-    public void cameraButtonOnClick(View view) {
-        
-    }
-    
-    public void mapButtonOnClick(View view) {
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
-    }
-    
-    public void dropboxButtonOnClick(View view) {
-        Intent intent = new Intent(this, DbxFolderContentListActivity.class);
-        
-        startActivity(intent);
-    }
+    /*************************************************************************/
     
     private void startCamera() {
         
@@ -195,8 +198,34 @@ public class MainActivity extends ListActivity
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
     
+    /*************************************************************************/
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        
+        switch (requestCode) {
+            case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
+                
+                if (resultCode == RESULT_OK) {
+                    // Image captured and saved to fileUri specified in the Intent
+                    
+                } else if (resultCode == RESULT_CANCELED) {
+                    // User cancelled the image capture
+                } else {
+                    // Image capture failed, advise user
+                }
+                
+                break;
+                
+            case CHOOSE_DBX_FOLDER:
+                if (resultCode == RESULT_OK) {
+                    String result = data.getStringExtra(DbxFolderChooser.TAG_DBX_FOLDER_CHOOSER_RESULT_PATH);
+                    Log.d(LOG_TAG,result);
+                }
+    
+            default:
+                break;
+        }
         
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             

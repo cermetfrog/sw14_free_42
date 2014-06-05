@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.test.AndroidTestCase;
 
 import com.mobileapplications.emporium.filebrowser.FileManager;
+import com.mobileapplications.emporium.filebrowser.GPSCoordinates;
 
 public class FileManagerTest extends AndroidTestCase {
 
@@ -68,5 +69,21 @@ public class FileManagerTest extends AndroidTestCase {
         assertNotNull(file);
         uri = FileManager.getUriFromFile(file);
         assertNotNull(uri);
+    }
+    
+    public void testWriteGPSCoordinatesToImage() {
+                
+        File testfile = FileManager.getImageFileWithName("testimage.jpg");
+        assertNotNull(testfile);
+        
+        GPSCoordinates gps = new GPSCoordinates(15.34562, "E", 47.23456, "N");
+        assertNotNull(gps);
+        
+        assertTrue(FileManager.writeGPSCoordinatesToImage(gps, testfile));
+        assertTrue(FileManager.writeGPSCoordinatesToImage(gps, Uri.fromFile(testfile)));
+        
+        assertFalse(FileManager.writeGPSCoordinatesToImage(null, testfile));
+        assertFalse(FileManager.writeGPSCoordinatesToImage(null, Uri.fromFile(testfile)));
+        
     }
 }

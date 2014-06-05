@@ -29,9 +29,6 @@ public class GPSCoordinatesTest extends AndroidTestCase {
         assertEquals(longitude, gps.getLongitude(), 0.0);
         assertEquals("E", gps.getLongRef());
         assertEquals("N", gps.getLatRef());
-        
-        double[] longlat = {longitude, latitude};
-        gps = new GPSCoordinates(longlat, "E", "N"); 
     }
     
     public void testLongToDegreeMinutesSeconds() {
@@ -58,5 +55,16 @@ public class GPSCoordinatesTest extends AndroidTestCase {
         String strLat = gps.latToDegreeMinutesSeconds();
         assertNotNull(strLat);
         assertEquals("47/1,3/1,3003/100", strLat);
+    }
+    
+    public void testToString() {
+        
+        double latitude = 47.058344;
+        double longitude = 15.460392;
+        
+        GPSCoordinates gps = new GPSCoordinates(longitude, "E", latitude, "N");
+        assertNotNull(gps);
+        
+        assertEquals("15.460392 E , 47.058344 N", gps.toString());
     }
 }

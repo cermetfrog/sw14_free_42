@@ -20,6 +20,8 @@ import com.dropbox.sync.android.DbxSyncStatus;
 public class DbxManager implements DbxFileSystem.SyncStatusListener, 
                                    DbxAccountManager.AccountListener {
 
+    public static final int DBX_MANAGER_LINKACCOUNT_REQUEST_CODE = 100;
+    
     // Static Constants
     private static final String LOG_DBX_TAG = "DbxManager";
     

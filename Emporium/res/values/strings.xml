@@ -21,5 +21,8 @@
     <string name="action_map">Map</string>
     <string name="action_dropbox">Dropbox</string>
     <string name="parent_folder">Parent Folder</string>
+    <string name="imageview_content_description">Content description</string>
+    <string name="title_activity_dbx_folder_chooser">DbxFolderChooser</string>
+    <string name="select_current_folder">Select current folder</string>
 
 </resources>
