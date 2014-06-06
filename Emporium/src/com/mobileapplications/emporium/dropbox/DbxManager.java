@@ -20,6 +20,8 @@ import com.dropbox.sync.android.DbxSyncStatus;
 public class DbxManager implements DbxFileSystem.SyncStatusListener, 
                                    DbxAccountManager.AccountListener {
 
+    public static final int DBX_MANAGER_LINKACCOUNT_REQUEST_CODE = 100;
+    
     // Static Constants
     private static final String LOG_DBX_TAG = "DbxManager";
     
@@ -132,6 +134,7 @@ public class DbxManager implements DbxFileSystem.SyncStatusListener,
         dbxFileSystem.addPathListener(l, path, mode);
     }
     
+    
     public boolean uploadFileToDbxPath(File file, DbxPath dbxFilePath) {
         if (dbxAccountMgr == null || dbxFileSystem == null) return false;
         if (file == null || dbxFilePath == null) return false;
@@ -170,6 +173,8 @@ public class DbxManager implements DbxFileSystem.SyncStatusListener,
             Log.d(LOG_DBX_TAG, e.getMessage());
             return false;
         }
+        
+        newDbxFile.close();
         
         return true;
     }

@@ -24,9 +24,6 @@ public class DbxFolderContentListActivity extends ListActivity
     // Variables used for logging.
     private static final String LOG_TAG = "DbxFolderContentListActivity";
     
-    // Dropbox constants
-    private static final int DBX_START_LINK_CRC = 1;
-    
     private DbxManager dbxManager;
     private DbxPath currentPath;
 
@@ -46,13 +43,7 @@ public class DbxFolderContentListActivity extends ListActivity
         
         dbxManager = DbxManager.getInstance(getApplicationContext());
         
-        dbxManager.linkAccount(this, DBX_START_LINK_CRC);
-    }
-    
-    @Override
-    protected void onRestart() {
-        // TODO Auto-generated method stub
-        super.onRestart();
+        dbxManager.linkAccount(this, DbxManager.DBX_MANAGER_LINKACCOUNT_REQUEST_CODE);
     }
 
     @Override
@@ -62,30 +53,6 @@ public class DbxFolderContentListActivity extends ListActivity
         if (dbxManager.hasLinkedAccount()) {
             updateListViewWithPath(DbxPath.ROOT);
         }
-    }
-    
-    @Override
-    protected void onResume() {
-        // TODO Auto-generated method stub
-        super.onResume();
-    }
-    
-    @Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
-        super.onPause();
-    }
-    
-    @Override
-    protected void onStop() {
-        // TODO Auto-generated method stub
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        // TODO Auto-generated method stub
-        super.onDestroy();
     }
     
     private void updateListViewWithPath(DbxPath path) {
@@ -117,10 +84,10 @@ public class DbxFolderContentListActivity extends ListActivity
     
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        //super.onListItemClick(l, v, position, id);
+
         Log.d(LOG_TAG,"onListItemClick: position = " + position);
         
-        ListAdapter listAdapter = getListView().getAdapter();
+        ListAdapter listAdapter = getListAdapter();
         DbxListItem listItem = (DbxListItem)listAdapter.getItem(position);
         DbxFileInfo fileInfo = listItem.getDbxFileInfo();
         
@@ -142,7 +109,7 @@ public class DbxFolderContentListActivity extends ListActivity
         
         switch (requestCode) {
         
-        case DBX_START_LINK_CRC:
+        case DbxManager.DBX_MANAGER_LINKACCOUNT_REQUEST_CODE:
             updateListViewWithPath(DbxPath.ROOT);
             break;
 
