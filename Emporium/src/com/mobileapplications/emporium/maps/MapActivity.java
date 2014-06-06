@@ -20,10 +20,13 @@ public class MapActivity extends Activity
 		private  GoogleMap googleMap;
 		private GPSTracker track;
 		private LatLng latlng;
+		private LatLng coord;
 		
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        coord = null;
+	       // = new LatLng();
 	        track = new GPSTracker(this);
 	        setContentView(R.layout.activity_map);
 	        setUpMapIfNeeded();
