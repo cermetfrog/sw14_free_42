@@ -1,5 +1,6 @@
 package com.mobileapplications.emporium.dropbox;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +16,19 @@ import android.widget.ListView;
 import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
-import com.dropbox.sync.android.DbxFileSystem.PathListener.Mode;
 import com.mobileapplications.emporium.R;
 
 public class DbxFolderChooser extends ListActivity 
     implements DbxFileSystem.PathListener {
+    
+    public static final String TAG_BUNDLE_KEY_IMAGE_PATH = "tagBundleKeyImagePath";
     
     public static final String TAG_DBX_FOLDER_CHOOSER_RESULT_PATH = "dbx_folder_chooser_result_path";
     
     private static final String LOG_TAG = "DbxFolderChooser";
     
     private DbxPath currentPath;
+    private String localImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,9 @@ public class DbxFolderChooser extends ListActivity
         
         DbxManager dbxMan = DbxManager.getInstance(getApplicationContext());
         dbxMan.linkAccount(this, DbxManager.DBX_MANAGER_LINKACCOUNT_REQUEST_CODE);
+        
+        Intent intent = getIntent();
+        localImagePath = intent.getStringExtra(TAG_BUNDLE_KEY_IMAGE_PATH);
     }
     
     
@@ -71,17 +77,35 @@ public class DbxFolderChooser extends ListActivity
     
     public void selectButtonOnClick(View view) {
         
-        String result = currentPath.getName();
-        DbxPath path = currentPath;
+//        String result = currentPath.getName();
+//        DbxPath path = currentPath;
+//        
+//        while(path != DbxPath.ROOT) {
+//            path = path.getParent();
+//            result = path.getName() + "/" + result;
+//        }
+//                
+//        Intent intent = new Intent();
+//        intent.putExtra(TAG_DBX_FOLDER_CHOOSER_RESULT_PATH, result);
+//        setResult(RESULT_OK, intent);
+//        finish();
         
-        while(path != DbxPath.ROOT) {
-            path = path.getParent();
-            result = path.getName() + "/" + result;
+        
+        DbxManager mgr = DbxManager.getInstance(getApplicationContext());
+        if (!mgr.hasLinkedAccount()) {
+            // TODO Error handling
+            return;
         }
-                
-        Intent intent = new Intent();
-        intent.putExtra(TAG_DBX_FOLDER_CHOOSER_RESULT_PATH, result);
-        setResult(RESULT_OK, intent);
+        
+        File localFile = new File(localImagePath);
+        
+        if (! mgr.uploadFileToDbxPath(localFile, new DbxPath(currentPath,localFile.getName()))) {
+            // TODO Error message
+            Log.d(LOG_TAG,"File upload failed :(");
+        } else {
+            Log.d(LOG_TAG,"File upload success :D");
+        }
+        
         finish();
     }
     
@@ -103,7 +127,7 @@ public class DbxFolderChooser extends ListActivity
         }
         
         for (DbxFileInfo fileInfo : fileInfoList) {
-            if (fileInfo.isFolder) {
+            if (fileInfo.isFolder || fileInfo.path.getName().contains(".jpg")) {
                 itemList.add(new DbxListItem(this,fileInfo));
             }
         }

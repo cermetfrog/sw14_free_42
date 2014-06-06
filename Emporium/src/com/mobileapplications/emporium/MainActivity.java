@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import com.mobileapplications.emporium.camera.ImageViewActivity;
 import com.mobileapplications.emporium.dropbox.DbxFolderChooser;
 import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
 import com.mobileapplications.emporium.filebrowser.FileBrowserListAdapter;
@@ -108,8 +109,18 @@ public class MainActivity extends ListActivity
 //        startActivity(intent);
         
         // TODO remove test code
-        Intent intent = new Intent(this,DbxFolderChooser.class);
-        startActivityForResult(intent, CHOOSE_DBX_FOLDER);
+//        Intent intent = new Intent(this,DbxFolderChooser.class);
+//        startActivityForResult(intent, CHOOSE_DBX_FOLDER);
+        
+        Intent intent = new Intent(this,ImageViewActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(ImageViewActivity.TAG_IMAGEVIEW_PATH, item.getFileUri().getPath());
+        bundle.putInt(ImageViewActivity.TAG_IMAGEVIEW_SOURCE_TYPE, ImageViewActivity.TAG_SOURCE_SDCARD);
+        
+        intent.putExtra("fileInfo", bundle);
+        
+        startActivity(intent);
+        
     }
 
     /*************************************************************************/
@@ -208,7 +219,7 @@ public class MainActivity extends ListActivity
                 
                 if (resultCode == RESULT_OK) {
                     // Image captured and saved to fileUri specified in the Intent
-                    
+                    updateListViewWithFile(FileManager.getOutputMediaFolder());
                 } else if (resultCode == RESULT_CANCELED) {
                     // User cancelled the image capture
                 } else {

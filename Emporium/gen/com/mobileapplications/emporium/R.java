@@ -262,22 +262,25 @@ containing a value of this type.
         public static final int word=0x7f020040;
     }
     public static final class id {
-        public static final int action_camera=0x7f050013;
-        public static final int action_dropbox=0x7f050014;
-        public static final int action_map=0x7f050015;
+        public static final int action_camera=0x7f050016;
+        public static final int action_dropbox=0x7f050017;
+        public static final int action_info=0x7f050013;
+        public static final int action_map=0x7f050018;
         public static final int action_settings=0x7f050011;
+        public static final int action_share_dropbox=0x7f050015;
+        public static final int action_show_on_map=0x7f050014;
         public static final int button_camera=0x7f050005;
         public static final int dbxFolderChooserSelectButton=0x7f050007;
         public static final int dbxListItemImageView=0x7f05000a;
         public static final int dbxListItemTextView=0x7f05000b;
         public static final int fileBrowserListItemImageView=0x7f05000c;
         public static final int fileBrowserListItemTextView=0x7f05000d;
-        public static final int goTo=0x7f050017;
+        public static final int goTo=0x7f05001a;
         public static final int hybrid=0x7f050004;
         public static final int imageView01=0x7f050008;
         public static final int item1=0x7f050012;
         public static final int map=0x7f050009;
-        public static final int map_settings=0x7f050016;
+        public static final int map_settings=0x7f050019;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int photoGridFragment=0x7f050006;
@@ -307,8 +310,9 @@ containing a value of this type.
         public static final int camera=0x7f0a0000;
         public static final int dbx_folder_content_list=0x7f0a0001;
         public static final int dropbox_main=0x7f0a0002;
-        public static final int main=0x7f0a0003;
-        public static final int map_activity=0x7f0a0004;
+        public static final int image_view_menu=0x7f0a0003;
+        public static final int main=0x7f0a0004;
+        public static final int map_activity=0x7f0a0005;
     }
     public static final class string {
         public static final int action_camera=0x7f06002b;
@@ -418,12 +422,16 @@ containing a value of this type.
         public static final int hello_blank_fragment=0x7f060029;
         public static final int hello_world=0x7f060021;
         public static final int imageview_content_description=0x7f06002f;
+        public static final int info=0x7f060034;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
         public static final int map_goto=0x7f060027;
         public static final int parent_folder=0x7f06002e;
         public static final int select_current_folder=0x7f060031;
+        public static final int share_dropbox=0x7f060032;
+        public static final int share_photo=0x7f060035;
+        public static final int show_on_map=0x7f060033;
         public static final int textview_default_text=0x7f060024;
         public static final int title_activity_camera=0x7f060028;
         public static final int title_activity_dbx_folder_chooser=0x7f060030;

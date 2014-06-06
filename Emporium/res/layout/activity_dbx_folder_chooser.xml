@@ -20,6 +20,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:onClick="selectButtonOnClick"
-        android:text="@string/select_current_folder" />
+        android:text="@string/share_photo" />
 
 </RelativeLayout>
