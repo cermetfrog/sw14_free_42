@@ -3,15 +3,19 @@ package com.mobileapplications.emporium.camera;
 import java.io.File;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.mobileapplications.emporium.R;
 import com.mobileapplications.emporium.dropbox.DbxFolderChooser;
+import com.mobileapplications.emporium.maps.MapActivity;
 
 public class ImageViewActivity extends Activity {
     
@@ -52,17 +56,42 @@ public class ImageViewActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-                
+          
+    	Intent intent;
         switch(item.getItemId()) {
             case R.id.action_info:
                 return true;
                 
             case R.id.action_show_on_map:
-                
+            	Bundle gpsbundle = new Bundle();
+            	gpsbundle = this.getIntent().getBundleExtra("gpscoordinates");
+            	gpsbundle = null;
+            	if(gpsbundle != null)
+            	{
+	            	intent = new Intent(this, MapActivity.class);
+	            	intent.putExtra("gpscoordinates", gpsbundle);
+	            	startActivity(intent);
+            	}
+	            else
+	            {
+	                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+	                alertDialog.setTitle("NO GPS Information");
+	          
+	                // Setting Dialog Message
+	                alertDialog.setMessage("This picture does not contain any GPS information... :(");
+	                alertDialog.setNeutralButton("Okay", new DialogInterface.OnClickListener() 
+	                {
+	                    public void onClick(DialogInterface dialog,int which) {
+	                    	dialog.dismiss();
+	                    }
+	                });
+	                alertDialog.show();
+	            }
+	            	
                 return true;
                 
             case R.id.action_share_dropbox:
-                Intent intent = new Intent(this,DbxFolderChooser.class);
+                intent = new Intent(this,DbxFolderChooser.class);
                 intent.putExtra(DbxFolderChooser.TAG_BUNDLE_KEY_IMAGE_PATH, currentImagePath);
                 startActivity(intent);
                 return true;

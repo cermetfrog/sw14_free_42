@@ -26,7 +26,7 @@ public class MapActivity extends Activity
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        coord = null;
-	       // = new LatLng();
+	        // = new LatLng();
 	        track = new GPSTracker(this);
 	        setContentView(R.layout.activity_map);
 	        setUpMapIfNeeded();
