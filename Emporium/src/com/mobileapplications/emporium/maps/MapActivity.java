@@ -14,6 +14,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mobileapplications.emporium.R;
+import com.mobileapplications.emporium.filebrowser.GPSCoordinates;
 
 public class MapActivity extends Activity
 {
@@ -49,15 +50,25 @@ public class MapActivity extends Activity
 		}
 		public void setUpMap() {
 			// TODO Auto-generated method stub
+        	Bundle gpsbundle = new Bundle();
+        	gpsbundle = this.getIntent().getBundleExtra("gpscoordinates");
 			googleMap.setMyLocationEnabled(true);
-			
-			latlng = new LatLng(track.getLatitude(), track.getLongitude());
-						
 			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			
+        	if(gpsbundle != null)
+        	{
+            	latlng = new LatLng(gpsbundle.getDouble(GPSCoordinates.TAG_LONGITUDE), gpsbundle.getDouble(GPSCoordinates.TAG_LATITUDE));
+            	googleMap.addMarker(new MarkerOptions().position(latlng).title("Picture"));
+        	}
+            else
+            {
+            	latlng = new LatLng(track.getLatitude(), track.getLongitude());
+            }
+
 						
 			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
 			
-			googleMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+			googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 			track.stopUsingGPS();
 			//googleMap.addMarker(new MarkerOptions().position(latlng).title("Mahmoud&Schuster are programming"));
 		}

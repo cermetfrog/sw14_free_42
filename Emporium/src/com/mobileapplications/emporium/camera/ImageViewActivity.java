@@ -65,7 +65,6 @@ public class ImageViewActivity extends Activity {
             case R.id.action_show_on_map:
             	Bundle gpsbundle = new Bundle();
             	gpsbundle = this.getIntent().getBundleExtra("gpscoordinates");
-            	gpsbundle = null;
             	if(gpsbundle != null)
             	{
 	            	intent = new Intent(this, MapActivity.class);
