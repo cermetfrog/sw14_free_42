@@ -96,7 +96,7 @@ public class MainActivity extends ListActivity
         FileBrowserListItem item = adapter.getItem(position);
 
         // TODO remove test code
-        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
+//        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
         
 //        
 //        Intent intent = new Intent(this, MapActivity.class);
@@ -105,25 +105,26 @@ public class MainActivity extends ListActivity
         // TODO remove test code
 //      Intent intent = new Intent(this,DbxFolderChooser.class);
 //      startActivityForResult(intent, CHOOSE_DBX_FOLDER);
+        
+//      if (gps != null) 
+//      {
+//        Bundle gpsbundle = new Bundle();
+//        gpsbundle.putDouble(GPSCoordinates.TAG_LONGITUDE, gps.getLongitude());
+//        gpsbundle.putDouble(GPSCoordinates.TAG_LATITUDE, gps.getLatitude());
+//        gpsbundle.putString(GPSCoordinates.TAG_LONGITUDE_REF, gps.getLongRef());
+//        gpsbundle.putString(GPSCoordinates.TAG_LATITUDE_REF, gps.getLatRef());
+//        intent.putExtra("gpscoordinates", gpsbundle);
+//      }
+        
+        
         Intent intent = new Intent(this,ImageViewActivity.class);
         Bundle bundle = new Bundle();
-        
-        if (gps != null) 
-        {
-        	Bundle gpsbundle = new Bundle();
-	        gpsbundle.putDouble(GPSCoordinates.TAG_LONGITUDE, gps.getLongitude());
-	        gpsbundle.putDouble(GPSCoordinates.TAG_LATITUDE, gps.getLatitude());
-	        gpsbundle.putString(GPSCoordinates.TAG_LONGITUDE_REF, gps.getLongRef());
-	        gpsbundle.putString(GPSCoordinates.TAG_LATITUDE_REF, gps.getLatRef());
-	        intent.putExtra("gpscoordinates", gpsbundle);
-        }
-        
         bundle.putString(ImageViewActivity.TAG_IMAGEVIEW_PATH, item.getFileUri().getPath());
         bundle.putInt(ImageViewActivity.TAG_IMAGEVIEW_SOURCE_TYPE, ImageViewActivity.TAG_SOURCE_SDCARD);
         
         intent.putExtra("fileInfo", bundle);
-
-        startActivity(intent);    
+        
+        startActivity(intent);
     }
 
     /*************************************************************************/
