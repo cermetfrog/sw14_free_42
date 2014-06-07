@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.mobileapplications.emporium.R;
 import com.mobileapplications.emporium.dropbox.DbxFolderChooser;
+import com.mobileapplications.emporium.filebrowser.ExifInfo;
 
 public class ImageViewActivity extends Activity {
     
@@ -55,6 +56,7 @@ public class ImageViewActivity extends Activity {
                 
         switch(item.getItemId()) {
             case R.id.action_info:
+                showExifInfoDialog();
                 return true;
                 
             case R.id.action_show_on_map:
@@ -79,6 +81,16 @@ public class ImageViewActivity extends Activity {
         
         ImageView iv = (ImageView)findViewById(R.id.imageView01);
         iv.setImageURI(Uri.fromFile(file));
+    }
+    
+    private void showExifInfoDialog() {
+        
+        ExifInfo exifinfo = ExifInfo.fromImage(new File(currentImagePath));
+        if (exifinfo == null) return;
+        
+        ImageViewExifInfoDialog dialog = ImageViewExifInfoDialog.newInstance(
+                R.string.meta_info, exifinfo.toString());
+        dialog.show(getFragmentManager(),"showExifDialogFragment");
     }
     
 }

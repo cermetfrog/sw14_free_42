@@ -28,5 +28,9 @@
     <string name="show_on_map">Show on Map</string>
     <string name="info">Info</string>
     <string name="share_photo">Share Photo</string>
+    <string name="close">Close</string><string name="cancel">Cancel</string>
+    
+    <string name="meta_info">Meta Info</string>
+    <string name="sign_out">Sign out</string>
 
 </resources>
