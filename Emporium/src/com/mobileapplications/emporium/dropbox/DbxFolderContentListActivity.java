@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
 import com.mobileapplications.emporium.R;
+import com.mobileapplications.emporium.maps.MapActivity;
 
 public class DbxFolderContentListActivity extends ListActivity 
     implements DbxFileSystem.PathListener {
@@ -77,7 +79,7 @@ public class DbxFolderContentListActivity extends ListActivity
         DbxArrayAdapter arrayAdapter = 
                 new DbxArrayAdapter(this, R.layout.dbx_folder_content_list_textview, itemList);
         
-        getListView().setAdapter(arrayAdapter);
+        setListAdapter(arrayAdapter);
         
         this.setTitle(currentPath.getName());
     }
@@ -101,6 +103,22 @@ public class DbxFolderContentListActivity extends ListActivity
                 }
             }
         }
+    }
+    
+    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        
+        switch(item.getItemId()) {
+        case R.id.action_dbx_signout:
+            dbxManager.unlinkAccount();
+            finish();
+            return true;
+            
+        default:
+            return super.onOptionsItemSelected(item);
+    }
     }
 
     @Override

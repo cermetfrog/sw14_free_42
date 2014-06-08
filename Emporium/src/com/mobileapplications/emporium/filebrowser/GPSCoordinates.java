@@ -11,15 +11,20 @@ public class GPSCoordinates {
     
     public static final String TAG_LONGITUDE = "longitude";
     public static final String TAG_LATITUDE = "latitude";
+    public static final String TAG_ALTITUDE = "altitude";
+
     public static final String TAG_LONGITUDE_REF = "longitudeRef";
     public static final String TAG_LATITUDE_REF = "latitudeRef";
-    
+    public static final String TAG_ALTITUDE_REF = "altitudeRef";
+
     private static final String LOG_TAG = "GPSCoordinates";
     
     private double mlongitude;
     private double mlatitude;
+    private double maltitude;
     private String mlongitudeRef;
     private String mlatitudeRef;
+    private int maltitudeRef;
     
     
     
@@ -62,6 +67,19 @@ public class GPSCoordinates {
         this.mlatitude = latitude;
         this.mlongitudeRef = longRef;
         this.mlatitudeRef = latRef;
+        maltitude = 0.0;
+        maltitudeRef = 0;
+    }
+    
+    public GPSCoordinates(double longitude, String longRef, 
+            double latitude, String latRef,
+            double altitude, int altitudeRef) {
+        this.mlongitude = longitude;
+        this.mlatitude = latitude;
+        this.mlongitudeRef = longRef;
+        this.mlatitudeRef = latRef;
+        this.maltitude = altitude;
+        this.maltitudeRef = altitudeRef;
     }
     
 
@@ -84,6 +102,13 @@ public class GPSCoordinates {
         return mlatitudeRef;
     }
     
+    public double getAltitude() {
+        return maltitude;
+    }
+    
+    public int getAltitudeRef() {
+        return maltitudeRef;
+    }
     
     public String toString() {
         return mlongitude + " " + mlongitudeRef + " , " + mlatitude + " " + mlatitudeRef;
