@@ -65,12 +65,9 @@ public class MapActivity extends Activity
             	latlng = new LatLng(track.getLatitude(), track.getLongitude());
             }
 
-						
-			googleMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
+			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,13));
 			
-			googleMap.animateCamera(CameraUpdateFactory.zoomTo(13));
 			track.stopUsingGPS();
-			//googleMap.addMarker(new MarkerOptions().position(latlng).title("Mahmoud&Schuster are programming"));
 		}
 
 	    protected void onActivityResult(int requestCode, int resultCode, Intent data) 
