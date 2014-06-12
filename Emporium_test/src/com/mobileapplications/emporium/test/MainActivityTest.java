@@ -7,6 +7,7 @@ import com.mobileapplications.emporium.maps.MapActivity;
 import com.robotium.solo.Solo;
 
 import android.test.ActivityInstrumentationTestCase2;
+import com.mobileapplications.emporium.*;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
@@ -25,17 +26,21 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         super.tearDown();
     }
 
-    public void testButtons()
+    public void testMapActivity()
     {
-        mySolo.clickOnButton("Dropbox");
-        mySolo.assertCurrentActivity("Current activity should be DbxFoldercontentListActivity", DbxFolderContentListActivity.class);
-        mySolo.goBack();
-        
-        mySolo.clickOnButton("Map");
+        mySolo.clickOnMenuItem("Map");
         mySolo.assertCurrentActivity("Current activity should be MapActivity", MapActivity.class);
         mySolo.goBack();
-        
-        mySolo.clickOnButton("Camera");
+        mySolo.goBack();
+    }
+    public void testRestActivity()
+    {
+    	
+    	mySolo.clickOnMenuItem("Dropbox"); //"@emporium:string/action_dropbox");
+        mySolo.assertCurrentActivity("Current activity should be DbxFoldercontentListActivity", DbxFolderContentListActivity.class);
+        mySolo.goBack();
+                
+        mySolo.clickOnMenuItem("Camera");
         mySolo.assertCurrentActivity("Current activity should be CameraActivity", CameraActivity.class);
         mySolo.goBack();
     }
