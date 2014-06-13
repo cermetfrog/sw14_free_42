@@ -18,16 +18,14 @@ import com.mobileapplications.emporium.filebrowser.GPSCoordinates;
 
 public class MapActivity extends Activity
 {
-		private  GoogleMap googleMap;
+		private GoogleMap googleMap;
 		private GPSTracker track;
 		private LatLng latlng;
-		private LatLng coord;
+		
 		
 	    @Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        coord = null;
-	        // = new LatLng();
 	        track = new GPSTracker(this);
 	        setContentView(R.layout.activity_map);
 	        setUpMapIfNeeded();
@@ -42,6 +40,7 @@ public class MapActivity extends Activity
 			
 			if(googleMap != null)
 			{
+				googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),0));
 				if(!track.canGetLocation())
 					track.showSettingsAlert();
 				else
@@ -64,8 +63,8 @@ public class MapActivity extends Activity
             {
             	latlng = new LatLng(track.getLatitude(), track.getLongitude());
             }
-
-			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,13));
+        	if(latlng.latitude != 0 && latlng.latitude != 0)
+        		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,13));
 			
 			track.stopUsingGPS();
 		}
@@ -112,6 +111,19 @@ public class MapActivity extends Activity
 	        // TODO Auto-generated method stub
 	        super.onDestroy();
 	    }
+
+		public GoogleMap getGoogleMap() {
+			return googleMap;
+		}
+
+		public GPSTracker getTrack() {
+			return track;
+		}
+		
+		public float getZoom()
+		{
+			return googleMap.getCameraPosition().zoom;
+		}
 	    
 }
 
