@@ -120,4 +120,16 @@ public class FileManager {
       }
       return mediaStorageDir;
     }
+    
+    
+    public static File getExamplePictureFolder() {
+        File outputFolder = getOutputMediaFolder();
+        if (outputFolder == null) return null;
+        
+        File exampleFolder = new File(outputFolder,"Examples");
+        if (! exampleFolder.exists()) {
+            exampleFolder.mkdirs();
+        }
+        return exampleFolder;
+    }
 }

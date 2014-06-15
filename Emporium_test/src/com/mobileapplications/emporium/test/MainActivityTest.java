@@ -1,11 +1,12 @@
 package com.mobileapplications.emporium.test;
 
 import android.app.Activity;
-import android.provider.Settings;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.mobileapplications.emporium.MainActivity;
+import com.mobileapplications.emporium.camera.ImageViewActivity;
+import com.mobileapplications.emporium.dropbox.DbxFolderChooser;
 import com.mobileapplications.emporium.maps.GPSTracker;
 import com.mobileapplications.emporium.maps.MapActivity;
 import com.robotium.solo.Solo;
@@ -76,7 +77,70 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mySolo.goBack();
         mySolo.goBack();
         
-    }    
+    }
+    
+    public void testInfoInImageViewActivity() {
+        mySolo.clickOnText("Example.jpg");
+        mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
+        
+        mySolo.clickOnMenuItem("Info");
+        if (mySolo.waitForDialogToOpen(3000))
+            mySolo.clickOnButton("Close");
+        else
+            fail("Infobox not opend within 3 seconds.");
+        
+        mySolo.goBack();
+    }
+    
+    public void testShowOnMapInImageViewActivity () {
+        mySolo.clickOnText("ExampleGPS.jpg");
+        mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
+        
+        mySolo.clickOnMenuItem("Show on Map");
+        mySolo.assertCurrentActivity("Current activity should be MapActivity", MapActivity.class);
+        
+        if (mySolo.waitForDialogToOpen(3000))
+            mySolo.clickOnButton("Cancel");
+        
+        mySolo.goBack();
+        mySolo.goBack();
+    }
+    
+    public void testShowOnMapInImageViewActivityNoGPS () {
+        mySolo.clickOnText("Example.jpg");
+        mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
+        
+        mySolo.clickOnMenuItem("Show on Map");
+        
+        if (mySolo.waitForDialogToOpen(3000))
+            assertTrue(mySolo.searchText("NO GPS Information"));
+            mySolo.clickOnButton("Okay");
+        
+        mySolo.goBack();
+    }
+    
+    public void testShareDropboxInImageViewActivity() {
+        mySolo.clickOnText("Example.jpg");
+        mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
+        
+        mySolo.clickOnMenuItem("Share Dropbox");
+        //mySolo.assertCurrentActivity("Current activity should be DbxFolderChooser", DbxFolderChooser.class);
+        //mySolo.sleep(2000);
+        
+        if (!mySolo.waitForActivity("DbxFolderChooser", 4000)){
+            if (mySolo.waitForActivity("AuthActivity", 4000)){
+            Log.d("WAIT FOR ACTIVITY!!!","ES FUNKTIONIERT! =)");
+            }
+        }
+        Activity ac = mySolo.getCurrentActivity();
+        Log.d("HERE WE ARE!!",ac.toString());
+        
+
+        mySolo.goBack();
+        mySolo.goBack();
+    }
+    
+    
     /*
     public void testRestActivity()
     {

@@ -1,12 +1,18 @@
 package com.mobileapplications.emporium;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,28 +100,6 @@ public class MainActivity extends ListActivity
         
         FileBrowserListAdapter adapter = (FileBrowserListAdapter)getListAdapter();
         FileBrowserListItem item = adapter.getItem(position);
-
-        // TODO remove test code
-//        GPSCoordinates gps = GPSCoordinates.fromImage(item.getFileUri());
-        
-//        
-//        Intent intent = new Intent(this, MapActivity.class);
-//      startActivity(intent);
-
-        // TODO remove test code
-//      Intent intent = new Intent(this,DbxFolderChooser.class);
-//      startActivityForResult(intent, CHOOSE_DBX_FOLDER);
-        
-//      if (gps != null) 
-//      {
-//        Bundle gpsbundle = new Bundle();
-//        gpsbundle.putDouble(GPSCoordinates.TAG_LONGITUDE, gps.getLongitude());
-//        gpsbundle.putDouble(GPSCoordinates.TAG_LATITUDE, gps.getLatitude());
-//        gpsbundle.putString(GPSCoordinates.TAG_LONGITUDE_REF, gps.getLongRef());
-//        gpsbundle.putString(GPSCoordinates.TAG_LATITUDE_REF, gps.getLatRef());
-//        intent.putExtra("gpscoordinates", gpsbundle);
-//      }
-        
         
         Intent intent = new Intent(this,ImageViewActivity.class);
         Bundle bundle = new Bundle();
@@ -172,8 +156,8 @@ public class MainActivity extends ListActivity
         if (file == null || !file.isDirectory()) return;
         
         File[] files = file.listFiles(new FilenameFilter() {
-            public boolean accept(File directory, String fileName) {
-                return fileName.endsWith(".jpg");
+            public boolean accept(File path, String fileName) {
+                return (fileName.endsWith(".jpg") || fileName.endsWith(".JPG"));
             }
         });
         

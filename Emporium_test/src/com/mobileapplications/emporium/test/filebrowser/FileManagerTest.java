@@ -2,11 +2,14 @@ package com.mobileapplications.emporium.test.filebrowser;
 
 import java.io.File;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.test.AndroidTestCase;
 
 import com.mobileapplications.emporium.filebrowser.FileManager;
 import com.mobileapplications.emporium.filebrowser.GPSCoordinates;
+import com.mobileapplications.emporium.test.R;
 
 public class FileManagerTest extends AndroidTestCase {
 
