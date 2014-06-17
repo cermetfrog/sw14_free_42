@@ -6,9 +6,9 @@ import android.util.Log;
 
 import com.mobileapplications.emporium.MainActivity;
 import com.mobileapplications.emporium.camera.ImageViewActivity;
-import com.mobileapplications.emporium.dropbox.DbxFolderChooser;
-import com.mobileapplications.emporium.maps.GPSTracker;
+import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
 import com.mobileapplications.emporium.maps.MapActivity;
+import com.robotium.solo.Condition;
 import com.robotium.solo.Solo;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -45,38 +45,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         if (mySolo.waitForDialogToOpen(3000))
         {
         	mySolo.clickOnButton("Settings");
-            mySolo.goBack();
+        	mySolo.goBack();
         }
         mySolo.goBack();
-    }
-    
-    public void testMapSetSettings()
-    {
-        mySolo.clickOnMenuItem("Map");
-        mySolo.assertCurrentActivity("Current activity should be MapActivity", MapActivity.class);
-        MapActivity tempMapActivity =  (MapActivity) mySolo.getCurrentActivity();
-
-        float zoom = 0;
-        boolean trackable = false;
-        
-        if (mySolo.waitForDialogToOpen(3000))
-        {
-        	mySolo.clickOnButton("Settings");
-        	mySolo.waitForDialogToClose();
-        }
-              
-        GPSTracker tracker = tempMapActivity.getTrack();
-        trackable = tracker.canGetLocation();
-        zoom = tempMapActivity.getZoom();
-        
-        if(trackable)
-            assertTrue(zoom != 0);
-        else
-        	assertTrue(zoom == 0);
-        	
-        mySolo.goBack();
-        mySolo.goBack();
-        
     }
     
     public void testInfoInImageViewActivity() {
@@ -124,33 +95,35 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
         
         mySolo.clickOnMenuItem("Share Dropbox");
-        //mySolo.assertCurrentActivity("Current activity should be DbxFolderChooser", DbxFolderChooser.class);
-        //mySolo.sleep(2000);
         
-        if (!mySolo.waitForActivity("DbxFolderChooser", 4000)){
-            if (mySolo.waitForActivity("AuthActivity", 4000)){
-            Log.d("WAIT FOR ACTIVITY!!!","ES FUNKTIONIERT! =)");
+        if (!mySolo.waitForActivity("DbxFolderChooser", 4000)) {
+            if (mySolo.waitForActivity("AuthActivity", 4000)) {
+                Log.d("WAIT FOR ACTIVITY!!!","ES FUNKTIONIERT! =)");
             }
         }
-        Activity ac = mySolo.getCurrentActivity();
-        Log.d("HERE WE ARE!!",ac.toString());
-        
 
         mySolo.goBack();
         mySolo.goBack();
     }
     
     
-    /*
+    public void testDbxUnlinkMenuItem() {
+        mySolo.assertCurrentActivity("Current activity should be MainActivity!", MainActivity.class);
+        mySolo.clickOnMenuItem("Dropbox");
+        
+        if (mySolo.waitForActivity(DbxFolderContentListActivity.class,3000)) {
+            mySolo.assertCurrentActivity("Current activity should be DbxFoldeContentList", DbxFolderContentListActivity.class);
+            mySolo.clickOnMenuItem("Sign out");
+            mySolo.assertCurrentActivity("Current activity should be MainActivity", MainActivity.class);
+        }
+        mySolo.goBackToActivity("MainActivity");
+    }
+    
+    
     public void testRestActivity()
     {
-    	
-    	mySolo.clickOnMenuItem("Dropbox"); //"@emporium:string/action_dropbox");
+    	mySolo.clickOnMenuItem("Dropbox");
         mySolo.assertCurrentActivity("Current activity should be DbxFoldercontentListActivity", DbxFolderContentListActivity.class);
         mySolo.goBack();
-                
-        mySolo.clickOnMenuItem("Camera");
-        mySolo.assertCurrentActivity("Current activity should be CameraActivity", CameraActivity.class);
-        mySolo.goBack();
-    }*/
+    }
 }

@@ -128,7 +128,11 @@ public class DbxFolderContentListActivity extends ListActivity
         switch (requestCode) {
         
         case DbxManager.DBX_MANAGER_LINKACCOUNT_REQUEST_CODE:
-            updateListViewWithPath(DbxPath.ROOT);
+            if (resultCode == RESULT_OK) {
+                updateListViewWithPath(DbxPath.ROOT);
+            } else {
+                finish();
+            }
             break;
 
         default:

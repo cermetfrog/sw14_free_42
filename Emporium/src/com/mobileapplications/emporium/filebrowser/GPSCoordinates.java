@@ -53,7 +53,7 @@ public class GPSCoordinates {
         String latRef = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
         String longRef = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
         
-        GPSCoordinates gps = new GPSCoordinates(longlat[0],longRef,longlat[1],latRef);
+        GPSCoordinates gps = new GPSCoordinates(longlat[1],longRef,longlat[0],latRef);
         
         return gps;
     }
