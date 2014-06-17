@@ -36,7 +36,7 @@ public class DbxManagerTest extends InstrumentationTestCase {
         
         File rootFolder = FileManager.getOutputMediaFolder();
         
-        File testimageFile = new File(rootFolder,"testimage.jpg");
+        File testimageFile = new File(rootFolder,"ExampleGPS.jpg");
         assertTrue(testimageFile.exists());
         
         assertTrue(dbxManager.hasLinkedAccount());

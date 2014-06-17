@@ -53,7 +53,7 @@ public class FileManagerTest extends AndroidTestCase {
     }
     
     public void testGetImageFileWithName() {
-        File file = FileManager.getImageFileWithName("testimage.jpg");
+        File file = FileManager.getImageFileWithName("ExampleGPS.jpg");
         assertNotNull(file);
         assertTrue(file.isFile());
         
@@ -76,7 +76,7 @@ public class FileManagerTest extends AndroidTestCase {
     
     public void testWriteGPSCoordinatesToImage() {
                 
-        File testfile = FileManager.getImageFileWithName("testimage.jpg");
+        File testfile = FileManager.getImageFileWithName("ExampleGPS.jpg");
         assertNotNull(testfile);
         
         GPSCoordinates gps = new GPSCoordinates(15.34562, "E", 47.23456, "N");

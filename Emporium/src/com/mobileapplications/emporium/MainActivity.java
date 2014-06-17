@@ -83,6 +83,7 @@ public class MainActivity extends ListActivity
                 
             case R.id.action_map:
                 intent = new Intent(this, MapActivity.class);
+                intent.putExtra("output_path", FileManager.getOutputMediaFolder());
                 startActivity(intent);
                 return true;
                 

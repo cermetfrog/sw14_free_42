@@ -1,10 +1,10 @@
 package com.mobileapplications.emporium.maps;
 
+import java.io.File;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -21,6 +21,7 @@ public class MapActivity extends Activity
 		private GoogleMap googleMap;
 		private GPSTracker track;
 		private LatLng latlng;
+		private File outputPath;
 		
 		
 	    @Override
@@ -47,24 +48,33 @@ public class MapActivity extends Activity
 					setUpMap();
 			}
 		}
+	    
 		public void setUpMap() {
 			// TODO Auto-generated method stub
         	Bundle gpsbundle = new Bundle();
         	gpsbundle = this.getIntent().getBundleExtra("gpscoordinates");
+	        outputPath = (File) this.getIntent().getSerializableExtra("output_path");
 			googleMap.setMyLocationEnabled(true);
 			googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 			
         	if(gpsbundle != null)
         	{
-            	latlng = new LatLng(gpsbundle.getDouble(GPSCoordinates.TAG_LONGITUDE), gpsbundle.getDouble(GPSCoordinates.TAG_LATITUDE));
+            	latlng = new LatLng(gpsbundle.getDouble(GPSCoordinates.TAG_LATITUDE), gpsbundle.getDouble(GPSCoordinates.TAG_LONGITUDE));
             	googleMap.addMarker(new MarkerOptions().position(latlng).title("Picture"));
+        	}else if(outputPath != null)
+        	{
+        		List<LatLng> GPSTagList = GPSTags.retGPSTagList(outputPath);
+        		for(LatLng GPSTag : GPSTagList)
+        		{
+        			googleMap.addMarker(new MarkerOptions().position(GPSTag).title("Picture"));
+        		}
+        		latlng = new LatLng(track.getLatitude(), track.getLongitude());
         	}
-            else
-            {
-            	latlng = new LatLng(track.getLatitude(), track.getLongitude());
-            }
-        	if(latlng.latitude != 0 && latlng.latitude != 0)
-        		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng,13));
+       
+        	if(latlng.latitude != 0 && latlng.longitude != 0)
+        		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 9));
+        	else
+        		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 0));
 			
 			track.stopUsingGPS();
 		}
@@ -77,6 +87,7 @@ public class MapActivity extends Activity
 	        	setUpMap();
 	        }
 	    }
+	    
 		@Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
 	        // Inflate the menu; this adds items to the action bar if it is present.
