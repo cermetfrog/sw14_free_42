@@ -1,18 +1,17 @@
 package com.mobileapplications.emporium;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +47,8 @@ public class MainActivity extends ListActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        copyAssets();
         
         getListView().setOnItemLongClickListener(this);
         
@@ -225,6 +226,43 @@ public class MainActivity extends ListActivity
     
             default:
                 break;
+        }
+    }
+    
+    private void copyAssets() {
+        
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e("tag", "Failed to get asset file list.", e);
+        }
+        for(String filename : files) {
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+              File outFile = new File(FileManager.getOutputMediaFolder(), filename);
+              boolean exists = outFile.exists();
+              if (exists || !(filename.equalsIgnoreCase("example.jpg") || filename.equalsIgnoreCase("examplegps.jpg"))) continue;
+              in = assetManager.open(filename);
+              out = new FileOutputStream(outFile);
+              copyFile(in, out);
+              in.close();
+              in = null;
+              out.flush();
+              out.close();
+              out = null;
+            } catch(IOException e) {
+                Log.e("tag", "Failed to copy asset file: " + filename, e);
+            }       
+        }
+    }
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+          out.write(buffer, 0, read);
         }
     }
 }

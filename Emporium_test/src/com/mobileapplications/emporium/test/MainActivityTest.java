@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 
 import com.mobileapplications.emporium.MainActivity;
 import com.mobileapplications.emporium.camera.ImageViewActivity;
+import com.mobileapplications.emporium.dropbox.DbxFolderContentListActivity;
 import com.mobileapplications.emporium.maps.MapActivity;
 import com.robotium.solo.Condition;
 import com.robotium.solo.Solo;
@@ -37,7 +38,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mySolo.goBack();
     }
     
-       
     public void testInfoInImageViewActivity() {
         mySolo.clickOnText("Example.jpg");
         mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
@@ -85,33 +85,22 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mySolo.assertCurrentActivity("Current activity should be ImageViewActivity", ImageViewActivity.class);
         
         mySolo.clickOnMenuItem("Share Dropbox");
-        //mySolo.assertCurrentActivity("Current activity should be DbxFolderChooser", DbxFolderChooser.class);
-        //mySolo.sleep(2000);
         
-        if (!mySolo.waitForActivity("DbxFolderChooser", 4000)){
-            if (mySolo.waitForActivity("AuthActivity", 4000)){
-            Log.d("WAIT FOR ACTIVITY!!!","ES FUNKTIONIERT! =)");
+        if (!mySolo.waitForActivity("DbxFolderChooser", 4000)) {
+            if (mySolo.waitForActivity("AuthActivity", 4000)) {
+                Log.d("WAIT FOR ACTIVITY!!!","ES FUNKTIONIERT! =)");
             }
         }
-        Activity ac = mySolo.getCurrentActivity();
-        Log.d("HERE WE ARE!!",ac.toString());
-        
 
         mySolo.goBack();
         mySolo.goBack();
     }
     
     
-    /*
     public void testRestActivity()
     {
-    	
-    	mySolo.clickOnMenuItem("Dropbox"); //"@emporium:string/action_dropbox");
+    	mySolo.clickOnMenuItem("Dropbox");
         mySolo.assertCurrentActivity("Current activity should be DbxFoldercontentListActivity", DbxFolderContentListActivity.class);
         mySolo.goBack();
-                
-        mySolo.clickOnMenuItem("Camera");
-        mySolo.assertCurrentActivity("Current activity should be CameraActivity", CameraActivity.class);
-        mySolo.goBack();
-    }*/
+    }
 }

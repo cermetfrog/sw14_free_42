@@ -77,20 +77,6 @@ public class DbxFolderChooser extends ListActivity
     
     public void selectButtonOnClick(View view) {
         
-//        String result = currentPath.getName();
-//        DbxPath path = currentPath;
-//        
-//        while(path != DbxPath.ROOT) {
-//            path = path.getParent();
-//            result = path.getName() + "/" + result;
-//        }
-//                
-//        Intent intent = new Intent();
-//        intent.putExtra(TAG_DBX_FOLDER_CHOOSER_RESULT_PATH, result);
-//        setResult(RESULT_OK, intent);
-//        finish();
-        
-        
         DbxManager mgr = DbxManager.getInstance(getApplicationContext());
         if (!mgr.hasLinkedAccount()) {
             // TODO Error handling
@@ -100,7 +86,6 @@ public class DbxFolderChooser extends ListActivity
         File localFile = new File(localImagePath);
         
         if (! mgr.uploadFileToDbxPath(localFile, new DbxPath(currentPath,localFile.getName()))) {
-            // TODO Error message
             Log.d(LOG_TAG,"File upload failed :(");
         } else {
             Log.d(LOG_TAG,"File upload success :D");
@@ -153,7 +138,11 @@ public class DbxFolderChooser extends ListActivity
         switch (requestCode) {
         
         case DbxManager.DBX_MANAGER_LINKACCOUNT_REQUEST_CODE:
-            updateListViewWithPath(DbxPath.ROOT);
+            if (resultCode == RESULT_OK) {
+                updateListViewWithPath(DbxPath.ROOT);
+            } else {
+                finish();
+            }
             break;
 
         default:

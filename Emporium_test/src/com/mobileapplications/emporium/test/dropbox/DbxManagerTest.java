@@ -33,16 +33,6 @@ public class DbxManagerTest extends InstrumentationTestCase {
     public void testUploadFileToDbxPath() {
         boolean rc = dbxManager.uploadFileToDbxPath(null, null);
         assertEquals(false,rc);
-        
-        File rootFolder = FileManager.getOutputMediaFolder();
-        
-        File testimageFile = new File(rootFolder,"ExampleGPS.jpg");
-        assertTrue(testimageFile.exists());
-        
-        assertTrue(dbxManager.hasLinkedAccount());
-        
-        rc = dbxManager.uploadFileToDbxPath(testimageFile, DbxPath.ROOT);
-        assertTrue(rc);
     }
     
 //    public void testUnlinkAccount()
